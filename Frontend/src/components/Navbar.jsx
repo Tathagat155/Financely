@@ -22,7 +22,7 @@ function Navbar() {
         <button
           className="login-btn"
           onClick={() => {
-            window.location.href = "/";
+            navigate("/");
           }}
         >
           Login

@@ -12,7 +12,7 @@ function Pagination({ page, setPage, totalPages }) {
             className={page === index + 1 ? "active-page" : ""}
           >
             {index + 1}
-          </button>
+          </button>    
         ),
       )}
     </div>
