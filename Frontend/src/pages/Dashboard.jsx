@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import API from "../api/axios";
 
 import Navbar from "../components/Navbar";
-import DashboardCards from "../components/DashboardCards";
+import DashboardCards from "../components/DashBoardCards";
 import TransactionModal from "../components/TransactionModal";
 import TransactionTable from "../components/TransactionTable";
 import Pagination from "../components/Pagination";
