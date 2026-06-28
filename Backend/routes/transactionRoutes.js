@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const authMiddleware = require("../middleware/authMiddleware");
+const authMiddleware = require("../middleware/authmiddleware");
 
 const {
   addTransaction,
