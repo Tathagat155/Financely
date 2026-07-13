@@ -55,7 +55,6 @@ function Dashboard() {
       <div className="container">
         <div className="dashboard-header">
           <h1>Dashboard</h1>
-
           <p>Manage your income and expenses</p>
         </div>
 
