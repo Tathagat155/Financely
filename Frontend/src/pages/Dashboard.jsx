@@ -9,8 +9,7 @@ import Pagination from "../components/Pagination";
 import { useAuth } from "../context/AuthContext";
 
 function Dashboard() {
-
- const { token, setToken } = useAuth();
+  const { token, setToken } = useAuth();
 
   const [transactions, setTransactions] = useState([]);
 
@@ -39,18 +38,27 @@ function Dashboard() {
       console.log(err);
     }
   };
+  const handleSearchChange = (value) => {
+    setPage(1);
+    setSearch(value);
+  };
 
+  const handleTypeChange = (value) => {
+    setPage(1);
+    setType(value);
+  };
+
+  const handleSortChange = (value) => {
+    setPage(1);
+    setSort(value);
+  };
   useEffect(() => {
     fetchTransactions();
   }, [search, type, sort, page]);
 
-  useEffect(() => {
-    setPage(1);
-  }, [search, type, sort]);
-
   return (
     <>
-      <Navbar/>
+      <Navbar />
 
       <div className="container">
         <div className="dashboard-header">
@@ -66,7 +74,7 @@ function Dashboard() {
               type="text"
               placeholder="Search Transactions"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
               className="search-input"
             />
 
@@ -79,7 +87,10 @@ function Dashboard() {
           <h2>My Transactions</h2>
 
           <div className="table-controls">
-            <select value={type} onChange={(e) => setType(e.target.value)}>
+            <select
+              value={type}
+              onChange={(e) => handleTypeChange(e.target.value)}
+            >
               <option value="">All</option>
 
               <option value="income">Income</option>
@@ -87,7 +98,10 @@ function Dashboard() {
               <option value="expense">Expense</option>
             </select>
 
-            <select value={sort} onChange={(e) => setSort(e.target.value)}>
+            <select
+              value={sort}
+              onChange={(e) => handleSortChange(e.target.value)}
+            >
               <option value="latest">Latest</option>
 
               <option value="oldest">Oldest</option>
