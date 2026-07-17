@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-function Navbar() {
+
+function Navbar({token,setToken}) {
   const navigate=useNavigate();
-  const { token, setToken } = useAuth();
   
   const handleLogout = () => {
     localStorage.removeItem("token");

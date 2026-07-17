@@ -6,10 +6,8 @@ import DashboardCards from "../components/DashBoardCards";
 import TransactionModal from "../components/TransactionModal";
 import TransactionTable from "../components/TransactionTable";
 import Pagination from "../components/Pagination";
-import { useAuth } from "../context/AuthContext";
 
-function Dashboard() {
-  const { token, setToken } = useAuth();
+function Dashboard({token,setToken}) {
 
   const [transactions, setTransactions] = useState([]);
 
@@ -58,7 +56,7 @@ function Dashboard() {
 
   return (
     <>
-      <Navbar />
+      <Navbar token={token} setToken={setToken}/>
 
       <div className="container">
         <div className="dashboard-header">
@@ -68,8 +66,7 @@ function Dashboard() {
 
         <DashboardCards transactions={transactions} />
 
-        {token && (
-          <div className="search-row">
+         {token && ( <div className="search-row">
             <input
               type="text"
               placeholder="Search Transactions"
@@ -82,7 +79,8 @@ function Dashboard() {
               + Add Transaction
             </button>
           </div>
-        )}
+         )}
+         
         <div className="table-header">
           <h2>My Transactions</h2>
 

@@ -2,10 +2,9 @@ import { useState } from "react";
 import API from "../api/axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-function AuthPage() {
+function AuthPage({setToken}) {
   const [isLogin, setIsLogin] = useState(true);
-  const { token, setToken } = useAuth();
+ 
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
