@@ -10,6 +10,11 @@ import Pagination from "../components/Pagination";
 function Dashboard({token,setToken}) {
 
   const [transactions, setTransactions] = useState([]);
+ const [summary, setSummary] = useState({
+  income: 0,
+  expense: 0,
+  balance: 0,
+  });
 
   const [search, setSearch] = useState("");
 
@@ -36,6 +41,17 @@ function Dashboard({token,setToken}) {
       console.log(err);
     }
   };
+  const fetchSummary = async () => {
+  try {
+    const res = await API.get(
+      "/transactions/summary"
+    );
+
+    setSummary(res.data);
+  } catch (err) {
+    console.log(err);
+  }
+};
   const handleSearchChange = (value) => {
     setPage(1);
     setSearch(value);
@@ -53,6 +69,9 @@ function Dashboard({token,setToken}) {
   useEffect(() => {
     fetchTransactions();
   }, [search, type, sort, page]);
+  useEffect(()=>{
+     fetchSummary();
+  },[])
 
   return (
     <>
@@ -64,7 +83,7 @@ function Dashboard({token,setToken}) {
           <p>Manage your income and expenses</p>
         </div>
 
-        <DashboardCards transactions={transactions} />
+        <DashboardCards summary={summary} />
 
          {token && ( <div className="search-row">
             <input
@@ -114,6 +133,7 @@ function Dashboard({token,setToken}) {
         <TransactionTable
           transactions={transactions}
           fetchTransactions={fetchTransactions}
+          fetchSummary={fetchSummary}
           token={token}
         />
 
@@ -123,6 +143,7 @@ function Dashboard({token,setToken}) {
           <TransactionModal
             setOpenModal={setOpenModal}
             fetchTransactions={fetchTransactions}
+            fetchSummary={fetchSummary}
           />
         )}
       </div>

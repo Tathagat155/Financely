@@ -112,9 +112,62 @@ const deleteTransaction = async (req, res) => {
     });
   }
 };
+const getSummary = async (req, res) => {
+  try {
+    const summary = await Transaction.aggregate([
+      {
+        $match: {
+          user: req.userId,
+        },
+      },
+
+      {
+        $group: {
+          _id: null,
+
+          income: {
+            $sum: {
+              $cond: [
+                { $eq: ["$type", "income"] },
+                "$amount",
+                0,
+              ],
+            },
+          },
+
+          expense: {
+            $sum: {
+              $cond: [
+                { $eq: ["$type", "expense"] },
+                "$amount",
+                0,
+              ],
+            },
+          },
+        },
+      },
+    ]);
+
+    const result = summary[0] || {
+      income: 0,
+      expense: 0,
+    };
+
+    res.json({
+      income: result.income,
+      expense: result.expense,
+      balance: result.income - result.expense,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Server Error",
+    });
+  }
+};
 
 module.exports = {
   addTransaction,
   getTransactions,
   deleteTransaction,
+  getSummary
 };

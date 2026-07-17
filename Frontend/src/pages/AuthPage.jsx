@@ -21,7 +21,6 @@ function AuthPage({setToken}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("form submit");
     try {
       const endpoint = isLogin ? "/auth/login" : "/auth/signup";
 

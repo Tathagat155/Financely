@@ -1,7 +1,7 @@
 import API from "../api/axios";
 import { toast } from "react-toastify";
 
-function TransactionTable({ transactions, fetchTransactions,token }) {
+function TransactionTable({ transactions, fetchTransactions,fetchSummary,token }) {
   const deleteTransaction = async (id) => {
     try {
       await API.delete(`/transactions/${id}`);
@@ -9,11 +9,11 @@ function TransactionTable({ transactions, fetchTransactions,token }) {
       toast.success("Deleted Successfully");
 
       fetchTransactions();
+      fetchSummary();
     } catch (err) {
       toast.error("Delete Failed");
     }
   };
-    console.log(transactions)
   return (
     <div className="table-wrapper">
       <table>

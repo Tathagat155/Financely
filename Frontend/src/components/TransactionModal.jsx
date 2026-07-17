@@ -2,7 +2,7 @@ import { useState } from "react";
 import API from "../api/axios";
 import { toast } from "react-toastify";
 
-function TransactionModal({ setOpenModal, fetchTransactions }) {
+function TransactionModal({ setOpenModal, fetchTransactions, fetchSummary}) {
   const [formData, setFormData] = useState({
     title: "",
     amount: "",
@@ -25,7 +25,7 @@ function TransactionModal({ setOpenModal, fetchTransactions }) {
       toast.success("Transaction Added");
 
       fetchTransactions();
-
+      fetchSummary()
       setOpenModal(false);
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");
